@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JlnIV/xpEaNHJHtwS7i6X6zrQxn2/QAoS9VBtadrmNln8siaXW9skXlndWFFJh2vpKhvI+jJiu2HDbjUaj30dA==",
+  "dgSpecHash": "UT4Cb70vppV+TLnijwNT54LPH7HRmajtB8w5CRRdFKX+Hc7zPLUUV1H9wMud4mo7OAU4vC/eS5XJuZw0+m+jqg==",
   "success": true,
-  "projectFilePath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/FXService/FXService.csproj",
+  "projectFilePath": "/home/kevin/repos/github/CurrencyUpdateService/FXService/FXService.csproj",
   "expectedPackageFiles": [
     "/home/kevin/.nuget/packages/mailkit/2.8.0/mailkit.2.8.0.nupkg.sha512",
     "/home/kevin/.nuget/packages/microsoft.csharp/4.0.1/microsoft.csharp.4.0.1.nupkg.sha512",

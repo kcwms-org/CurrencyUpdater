@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj": {}
+    "/home/kevin/repos/github/CurrencyUpdateService/Dto/Dto.csproj": {}
   },
   "projects": {
-    "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj": {
+    "/home/kevin/repos/github/CurrencyUpdateService/Dto/Dto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj",
+        "projectUniqueName": "/home/kevin/repos/github/CurrencyUpdateService/Dto/Dto.csproj",
         "projectName": "Dto",
-        "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj",
+        "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/Dto/Dto.csproj",
         "packagesPath": "/home/kevin/.nuget/packages/",
-        "outputPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/obj/",
+        "outputPath": "/home/kevin/repos/github/CurrencyUpdateService/Dto/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/kevin/.nuget/NuGet/NuGet.Config"

@@ -1,0 +1,32 @@
+name: publish-service
+
+on:    
+  push:
+    branches: testing
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+
+    - name: Publish
+      run: dotnet publish .\FXService\FXService.csproj --nologo --output dist --configuration Testing
+
+    - name: Remove Dev Settings
+      run: Rename-Item -Path .\dist\appsettings.* -NewName "appsettings.json"
+    
+    - name: Upload Output
+      uses: actions/upload-artifact@v2.1.4
+      with: 
+        path: dist

@@ -6437,11 +6437,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/FXService/FXService.csproj",
+      "projectUniqueName": "/home/kevin/repos/github/CurrencyUpdateService/FXService/FXService.csproj",
       "projectName": "Kevcoder.FXService",
-      "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/FXService/FXService.csproj",
+      "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/FXService/FXService.csproj",
       "packagesPath": "/home/kevin/.nuget/packages/",
-      "outputPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/FXService/obj/",
+      "outputPath": "/home/kevin/repos/github/CurrencyUpdateService/FXService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/kevin/.nuget/NuGet/NuGet.Config"
@@ -6456,11 +6456,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj": {
-              "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj"
+            "/home/kevin/repos/github/CurrencyUpdateService/Dto/Dto.csproj": {
+              "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/Dto/Dto.csproj"
             },
-            "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj": {
-              "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj"
+            "/home/kevin/repos/github/CurrencyUpdateService/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj": {
+              "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj"
             }
           }
         }
