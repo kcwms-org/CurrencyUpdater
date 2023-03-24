@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "p8l4h8GGyr307w+DO0FskDWXHqaI4bHVLumQehrWU0w/SP3HFxcMJ3Necm/uBJC4iplCo6EGuKEsOJi+ugbG5g==",
+  "success": true,
+  "projectFilePath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj",
+  "expectedPackageFiles": [
+    "/home/kevin/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.0/microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
+    "/home/kevin/.nuget/packages/microsoft.extensions.logging.abstractions/3.1.7/microsoft.extensions.logging.abstractions.3.1.7.nupkg.sha512",
+    "/home/kevin/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/home/kevin/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.runtime.compilerservices.unsafe/4.7.1/system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.text.encodings.web/4.7.1/system.text.encodings.web.4.7.1.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.text.json/4.7.2/system.text.json.4.7.2.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+  ],
+  "logs": []
+}

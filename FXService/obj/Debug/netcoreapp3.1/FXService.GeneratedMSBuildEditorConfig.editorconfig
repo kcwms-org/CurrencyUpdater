@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = Kevcoder.FXService
+build_property.ProjectDir = /home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/FXService/

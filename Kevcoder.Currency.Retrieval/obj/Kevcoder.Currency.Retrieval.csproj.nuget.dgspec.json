@@ -1,0 +1,130 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj": {}
+  },
+  "projects": {
+    "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj",
+        "projectName": "Dto",
+        "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj",
+        "packagesPath": "/home/kevin/.nuget/packages/",
+        "outputPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/kevin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.113/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj",
+        "projectName": "Kevcoder.Currency.Retrieval",
+        "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj",
+        "packagesPath": "/home/kevin/.nuget/packages/",
+        "outputPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Kevcoder.Currency.Retrieval/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/kevin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {
+              "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj": {
+                "projectPath": "/home/kevin/repos/github/CurrencyUpdateService/CurrencyUpdateService-master/Dto/Dto.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[4.7.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.113/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
