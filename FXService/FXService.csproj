@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>dotnet-FXService-9306BF8F-840A-4FA8-BA71-762C6ABAF9C5</UserSecretsId>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
     <AssemblyName>Kevcoder.FXService</AssemblyName>
     <RootNamespace>Kevcoder.FXService</RootNamespace>
-    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <Choose>
+<Choose>
     <When Condition="'$(Configuration)' == 'Debug'">
       <ItemGroup>
         <None Include="appsettings.Development.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
@@ -36,8 +36,8 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.8.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.7" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.1" />
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="3.1.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
@@ -47,8 +47,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dto\Dto.csproj" />
-    <ProjectReference Include="..\Kevcoder.Currency.Retrieval\Kevcoder.Currency.Retrieval.csproj" />
+    <ProjectReference Include="../Dto/Dto.csproj" />
+    <ProjectReference Include="../Kevcoder.Currency.Retrieval/Kevcoder.Currency.Retrieval.csproj" />
   </ItemGroup>
   
 </Project>
