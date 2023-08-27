@@ -23,26 +23,28 @@ namespace Kevcoder.FXService
     {
         private readonly ILogger<Worker> _logger;
         private readonly IConfiguration _config;
-        private HttpClient _http;
+        private readonly HttpClient _http;
           
 
-        private readonly ApplicationCredentials _cred;
+        private readonly IApplicationCredentials _cred;
         private readonly FXCurrencyQuery _defaultQueryValues;
         private readonly Serviceconfiguration _svcConfig;
 
-        public Worker(ILogger<Worker> logger, IConfiguration configuration)
+        public Worker(
+            ILogger<Worker> logger,
+            IConfiguration configuration,
+            HttpClient http,
+            IApplicationCredentials credentials,
+            FXCurrencyQuery fXCurrencyQuery,
+            Serviceconfiguration serviceconfiguration)
         {
             _logger = logger;
             _config = configuration;
+            _http = http;
 
-            _cred = new ApplicationCredentials();
-            _defaultQueryValues = new FXCurrencyQuery();
-            _svcConfig = new Serviceconfiguration();
-
-            _config.GetSection("ServiceConfiguration").Bind(_svcConfig);
-            _config.GetSection("xeConfiguration:ApplicationCredentials").Bind(_cred);
-            _config.GetSection("xeConfiguration:DefaultFXCurrencyQuery").Bind(_defaultQueryValues);
-
+            _cred = credentials;
+            _defaultQueryValues =  fXCurrencyQuery;
+            _svcConfig = serviceconfiguration;
 
             if (_svcConfig.MinutesToWaitBetweenExecutions == 0)
             {
@@ -56,7 +58,6 @@ namespace Kevcoder.FXService
         public override Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("starting...");
-            _http = new HttpClient();
             _http.BaseAddress = new Uri(_cred.BaseUrl);
             return base.StartAsync(cancellationToken);
         }
@@ -77,7 +78,7 @@ namespace Kevcoder.FXService
             }
         }
 
-        public async Task Start(ApplicationCredentials credentials
+        public async Task Start(IApplicationCredentials credentials
             , FXCurrencyQuery defaultQueryValues)
         {
             var vendorResults = new List<(FXCurrencyQuery qry, decimal rate)>();

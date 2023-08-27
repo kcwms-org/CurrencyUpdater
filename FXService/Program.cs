@@ -9,6 +9,7 @@ using Serilog.Events;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Dto;
 
 namespace Kevcoder.FXService
 {
@@ -17,7 +18,7 @@ namespace Kevcoder.FXService
         public static void Main(string[] args)
         {
             var cfg = new ConfigurationBuilder()
-            
+
             .AddJsonFile("appsettings.json", false, true)
             .AddJsonFile("appsettings.Development.json", true, true)
             .Build();
@@ -48,6 +49,24 @@ namespace Kevcoder.FXService
             .UseWindowsService()
             .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddSingleton<IApplicationCredentials>(s =>
+                    {
+                        var _cred = new ApplicationCredentials();
+                        hostContext.Configuration.GetSection("xeConfiguration:ApplicationCredentials").Bind(_cred);
+                        return _cred;
+                    });
+                    services.AddSingleton<FXCurrencyQuery>(s =>{
+                        var _query = new FXCurrencyQuery();
+                        hostContext.Configuration.GetSection("xeConfiguration:DefaultFXCurrencyQuery").Bind(_query);
+                        return _query;
+                    });
+                    services.AddSingleton<Serviceconfiguration>(s =>{
+                        var _svcConfig = new Serviceconfiguration();
+                        hostContext.Configuration.GetSection("ServiceConfiguration").Bind(_svcConfig);
+                        return _svcConfig;
+                    });
+                    
+                    services.AddSingleton<HttpClient>();
                     services.AddHostedService<Worker>();
 
                 }).UseSerilog();
