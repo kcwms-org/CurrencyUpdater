@@ -10,7 +10,7 @@
             "request": "launch",
 
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/FXService/bin/Debug/netcoreapp3.1/SkyRacingWorld.FXService.exe",
+            "program": "${workspaceFolder}/FXService/bin/Debug/net7.0/Kevcoder.FXService.dll",
             "args": [],
             "cwd": "${workspaceFolder}/FXService",
             "console": "internalConsole",

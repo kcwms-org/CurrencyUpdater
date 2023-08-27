@@ -1,0 +1,7 @@
+{
+    "dotnet.defaultSolution": "Kevcoder.CurrencyUpdate.sln",
+    "files.watcherExclude": {
+        "**/bin/**": true,
+        "**/obj/**": true,
+    }
+}
