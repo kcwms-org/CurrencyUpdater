@@ -1,0 +1,40 @@
+{
+    "currencies": [
+        {
+            "StartingCurrencyCode": "USD",
+            "EndingCurrencyCodes": "USD",
+            "DecimalPlaces":0.0,
+            "StartingDate":"2023-08-27"
+        },
+        {
+            "StartingCurrencyCode": "EUR",
+            "EndingCurrencyCodes": "EUR",
+            "DecimalPlaces":0.0,
+            "StartingDate":"2023-08-27"
+        },
+        {
+            "StartingCurrencyCode": "GBP",
+            "EndingCurrencyCodes": "GBP",
+            "DecimalPlaces":0.0,
+            "StartingDate":"2023-08-27"
+        },
+        {
+            "StartingCurrencyCode": "JPY",
+            "EndingCurrencyCodes": "JPY",
+            "DecimalPlaces":0.0,
+            "StartingDate":"2023-08-27"
+        },
+        {
+            "StartingCurrencyCode": "AUD",
+            "EndingCurrencyCodes": "AUD",
+            "DecimalPlaces":0.0,
+            "StartingDate":"2023-08-27"
+        }
+    ],
+    "log": [
+        {
+            "level": "Debug",
+            "message": "Debug message"
+        }
+    ]
+}

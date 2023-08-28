@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Dto;
+using Kevcoder.Currency.Retrieval;
 
 namespace Kevcoder.FXService
 {
@@ -65,6 +66,7 @@ namespace Kevcoder.FXService
                         hostContext.Configuration.GetSection("ServiceConfiguration").Bind(_svcConfig);
                         return _svcConfig;
                     });
+                    services.AddSingleton<IRetriever, FixerIoRetriever>();
                     
                     services.AddSingleton<HttpClient>();
                     services.AddHostedService<Worker>();

@@ -1,19 +1,9 @@
 using Dto;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Kevcoder.Currency.Retrieval;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
 using MailKit.Security;
 
@@ -24,11 +14,12 @@ namespace Kevcoder.FXService
         private readonly ILogger<Worker> _logger;
         private readonly IConfiguration _config;
         private readonly HttpClient _http;
-          
+
 
         private readonly IApplicationCredentials _cred;
         private readonly FXCurrencyQuery _defaultQueryValues;
         private readonly Serviceconfiguration _svcConfig;
+        private readonly IRetriever _retriever;
 
         public Worker(
             ILogger<Worker> logger,
@@ -36,15 +27,18 @@ namespace Kevcoder.FXService
             HttpClient http,
             IApplicationCredentials credentials,
             FXCurrencyQuery fXCurrencyQuery,
-            Serviceconfiguration serviceconfiguration)
+            Serviceconfiguration serviceconfiguration,
+            IRetriever retriever)
         {
             _logger = logger;
             _config = configuration;
             _http = http;
 
             _cred = credentials;
-            _defaultQueryValues =  fXCurrencyQuery;
+            _defaultQueryValues = fXCurrencyQuery;
             _svcConfig = serviceconfiguration;
+
+            _retriever = retriever;
 
             if (_svcConfig.MinutesToWaitBetweenExecutions == 0)
             {
@@ -83,14 +77,12 @@ namespace Kevcoder.FXService
         {
             var vendorResults = new List<(FXCurrencyQuery qry, decimal rate)>();
 
-            var missingCurrencies = this.GetMissingCurrencyCodes();
+            var missingCurrencies = GetMissingCurrencyCodesForFixerIo(); //this.GetMissingCurrencyCodes();
 
             if (missingCurrencies.Count() > 0)
             {
                 var errorCallingService = false;
                 _logger.LogInformation($"found {missingCurrencies.Count()} missing currencies");
-
-                var retriever = new Retriever(_http, credentials, _logger);
 
                 foreach (var currencyQry in missingCurrencies)
                 {
@@ -100,7 +92,7 @@ namespace Kevcoder.FXService
 
                     try
                     {
-                        var results = await retriever.GetRateAsync(currencyQry);
+                        var results = await _retriever.GetRateAsync(currencyQry);
                         if (results?.Count() == 0)
                             throw new ArgumentException("no results");
                         foreach (var result in results)
@@ -246,6 +238,22 @@ namespace Kevcoder.FXService
             return results;
         }
 
+        protected IEnumerable<FXCurrencyQuery> GetMissingCurrencyCodesForFixerIo()
+        {
+            var results = new List<(FXCurrencyQuery qry, decimal rate)>();
+            _http.BaseAddress = new Uri("http://localhost:3000/");
+            var resultContent = _http.GetStringAsync("currencies").Result;
+
+            var missingCodes = new List<FXCurrencyQuery>();
+
+            var currentCodes = JsonSerializer.Deserialize<FXCurrencyQuery[]>(resultContent);
+            if (currentCodes?.Length > 0)
+            {
+                 missingCodes.AddRange( currentCodes.Where(c => c.DecimalPlaces == 0));
+            }
+
+            return missingCodes;
+        }
         protected IEnumerable<(FXCurrencyQuery qry, int pk, bool wasSuccessful)> AddMissingCurrencyCodes(IEnumerable<(FXCurrencyQuery qry, decimal rate)> newCodes)
         {
             List<(FXCurrencyQuery qry, int pk, bool wasSuccessful)> results = new List<(FXCurrencyQuery qry, int pk, bool wasSuccessful)>();

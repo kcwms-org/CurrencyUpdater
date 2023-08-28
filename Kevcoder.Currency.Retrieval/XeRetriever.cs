@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Kevcoder.Currency.Retrieval
 {
-    public class Retriever
+    public class XeRetriever : IRetriever
     {
         private readonly ILogger _logger;
         private readonly HttpClient _http;
         private readonly IApplicationCredentials _creds;
         private readonly JsonSerializerOptions _jsonOpts;
 
-        public Retriever(HttpClient httpClient, IApplicationCredentials credentials, ILogger logger)
+        public XeRetriever(HttpClient httpClient, IApplicationCredentials credentials, ILogger logger)
         {
             _logger = logger;
             _jsonOpts = new JsonSerializerOptions()
