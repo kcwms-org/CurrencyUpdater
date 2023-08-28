@@ -1,6 +1,6 @@
 {
     "dotnet.defaultSolution": "Kevcoder.CurrencyUpdate.sln",
-    "files.watcherExclude": {
+    "files.exclude": {
         "**/bin/**": true,
         "**/obj/**": true,
     }
