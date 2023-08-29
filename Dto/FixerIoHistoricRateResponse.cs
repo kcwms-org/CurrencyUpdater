@@ -13,6 +13,6 @@ namespace Dto
         public bool Historical { get; set; }
         public DateTime Date { get; set; }
         public string Base { get; set; }
-        public IDictionary<string, decimal> Rates { get; private set;} = new Dictionary<string, decimal>();
+        public IDictionary<string, decimal> Rates { get;  set;}
     }
 }

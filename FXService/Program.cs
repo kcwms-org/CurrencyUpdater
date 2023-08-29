@@ -53,12 +53,12 @@ namespace Kevcoder.FXService
                     services.AddSingleton<IApplicationCredentials>(s =>
                     {
                         var _cred = new ApplicationCredentials();
-                        hostContext.Configuration.GetSection("xeConfiguration:ApplicationCredentials").Bind(_cred);
+                        hostContext.Configuration.GetSection("fixerConfiguration:ApplicationCredentials").Bind(_cred);
                         return _cred;
                     });
                     services.AddSingleton<FXCurrencyQuery>(s =>{
                         var _query = new FXCurrencyQuery();
-                        hostContext.Configuration.GetSection("xeConfiguration:DefaultFXCurrencyQuery").Bind(_query);
+                        hostContext.Configuration.GetSection("fixerConfiguration:DefaultFXCurrencyQuery").Bind(_query);
                         return _query;
                     });
                     services.AddSingleton<Serviceconfiguration>(s =>{

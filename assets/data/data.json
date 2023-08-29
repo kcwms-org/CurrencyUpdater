@@ -1,40 +1,41 @@
 {
-    "currencies": [
-        {
-            "StartingCurrencyCode": "USD",
-            "EndingCurrencyCodes": "USD",
-            "DecimalPlaces":0.0,
-            "StartingDate":"2023-08-27"
-        },
-        {
-            "StartingCurrencyCode": "EUR",
-            "EndingCurrencyCodes": "EUR",
-            "DecimalPlaces":0.0,
-            "StartingDate":"2023-08-27"
-        },
-        {
-            "StartingCurrencyCode": "GBP",
-            "EndingCurrencyCodes": "GBP",
-            "DecimalPlaces":0.0,
-            "StartingDate":"2023-08-27"
-        },
-        {
-            "StartingCurrencyCode": "JPY",
-            "EndingCurrencyCodes": "JPY",
-            "DecimalPlaces":0.0,
-            "StartingDate":"2023-08-27"
-        },
-        {
-            "StartingCurrencyCode": "AUD",
-            "EndingCurrencyCodes": "AUD",
-            "DecimalPlaces":0.0,
-            "StartingDate":"2023-08-27"
-        }
-    ],
-    "log": [
-        {
-            "level": "Debug",
-            "message": "Debug message"
-        }
-    ]
+  "currencies": [
+    {
+      "StartingCurrencyCode": "EUR",
+      "StartingDate": "2023-08-27T00:00:00",
+      "EndingCurrencyCodes": "USD",
+      "Rate": 1.082257
+    },
+    {
+      "StartingCurrencyCode": "EUR",
+      "StartingDate": "2023-08-27T00:00:00",
+      "EndingCurrencyCodes": "EUR",
+      "Rate": 1
+    },
+    {
+      "StartingCurrencyCode": "EUR",
+      "StartingDate": "2023-08-27T00:00:00",
+      "EndingCurrencyCodes": "GBP",
+      "Rate": 0.85698
+    },
+    {
+      "StartingCurrencyCode": "EUR",
+      "StartingDate": "2023-08-27T00:00:00",
+      "EndingCurrencyCodes": "JPY",
+      "Rate": 158.43815
+    },
+    {
+      "StartingCurrencyCode": "EUR",
+      "StartingDate": "2023-08-27T00:00:00",
+      "EndingCurrencyCodes": "AUD",
+      "Rate": 1.678759
+    }
+  ],
+  "log": [
+    {
+      "id": 1,
+      "level": "Debug",
+      "message": "Debug message"
+    }
+  ]
 }
