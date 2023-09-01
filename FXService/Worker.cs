@@ -1,21 +1,12 @@
 using Dto;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Kevcoder.Currency.Retrieval;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
 using MailKit.Security;
+using System.Text;
 
 namespace Kevcoder.FXService
 {
@@ -24,11 +15,12 @@ namespace Kevcoder.FXService
         private readonly ILogger<Worker> _logger;
         private readonly IConfiguration _config;
         private readonly HttpClient _http;
-          
+
 
         private readonly IApplicationCredentials _cred;
         private readonly FXCurrencyQuery _defaultQueryValues;
         private readonly Serviceconfiguration _svcConfig;
+        private readonly IRetriever _retriever;
 
         public Worker(
             ILogger<Worker> logger,
@@ -36,15 +28,18 @@ namespace Kevcoder.FXService
             HttpClient http,
             IApplicationCredentials credentials,
             FXCurrencyQuery fXCurrencyQuery,
-            Serviceconfiguration serviceconfiguration)
+            Serviceconfiguration serviceconfiguration,
+            IRetriever retriever)
         {
             _logger = logger;
             _config = configuration;
             _http = http;
 
             _cred = credentials;
-            _defaultQueryValues =  fXCurrencyQuery;
+            _defaultQueryValues = fXCurrencyQuery;
             _svcConfig = serviceconfiguration;
+
+            _retriever = retriever;
 
             if (_svcConfig.MinutesToWaitBetweenExecutions == 0)
             {
@@ -83,14 +78,17 @@ namespace Kevcoder.FXService
         {
             var vendorResults = new List<(FXCurrencyQuery qry, decimal rate)>();
 
-            var missingCurrencies = this.GetMissingCurrencyCodes();
+            var missingCurrencies = new List<FXCurrencyQuery>();
+            if (_retriever is FixerIoRetriever)
+                missingCurrencies.AddRange(GetMissingCurrencyCodesForFixerIo());
+            else
+                missingCurrencies.AddRange(GetMissingCurrencyCodes());
+
 
             if (missingCurrencies.Count() > 0)
             {
                 var errorCallingService = false;
                 _logger.LogInformation($"found {missingCurrencies.Count()} missing currencies");
-
-                var retriever = new Retriever(_http, credentials, _logger);
 
                 foreach (var currencyQry in missingCurrencies)
                 {
@@ -100,7 +98,7 @@ namespace Kevcoder.FXService
 
                     try
                     {
-                        var results = await retriever.GetRateAsync(currencyQry);
+                        var results = await _retriever.GetRateAsync(currencyQry);
                         if (results?.Count() == 0)
                             throw new ArgumentException("no results");
                         foreach (var result in results)
@@ -128,7 +126,12 @@ namespace Kevcoder.FXService
 
             if (vendorResults.Count > 0)
             {
-                var dbInsertResults = this.AddMissingCurrencyCodes(vendorResults);
+                var dbInsertResults = new List<(FXCurrencyQuery qry, int pk, bool wasSuccessful)>();
+                if (_retriever is FixerIoRetriever)
+                    dbInsertResults.AddRange(AddMissingCurrencyCodesForFixerIo(vendorResults));
+                else
+                    dbInsertResults.AddRange(AddMissingCurrencyCodes(vendorResults));
+
                 if (dbInsertResults?.Count() != missingCurrencies.Count())
                 {
                     var successfulInserts = string.Join("\n", dbInsertResults.Select(x => $"{x.qry.EndingCurrencyCodes} {x.qry.StartingDate}"));
@@ -246,6 +249,23 @@ namespace Kevcoder.FXService
             return results;
         }
 
+        protected IEnumerable<FXCurrencyQuery> GetMissingCurrencyCodesForFixerIo()
+        {
+            var results = new List<(FXCurrencyQuery qry, decimal rate)>();
+            var uri = new Uri("http://localhost:3000/currencies");
+            var resultContent = _http.GetStringAsync(uri).Result;
+
+            var missingCodes = new List<FXCurrencyQuery>();
+
+            var currentCodes = JsonSerializer.Deserialize<FXCurrencyQuery[]>(resultContent);
+            if (currentCodes?.Length > 0)
+            {
+                missingCodes.AddRange(currentCodes.Where(c => c.DecimalPlaces == 0));
+            }
+
+            return missingCodes;
+        }
+
         protected IEnumerable<(FXCurrencyQuery qry, int pk, bool wasSuccessful)> AddMissingCurrencyCodes(IEnumerable<(FXCurrencyQuery qry, decimal rate)> newCodes)
         {
             List<(FXCurrencyQuery qry, int pk, bool wasSuccessful)> results = new List<(FXCurrencyQuery qry, int pk, bool wasSuccessful)>();
@@ -297,6 +317,42 @@ namespace Kevcoder.FXService
             return results;
         }
 
+        protected IEnumerable<(FXCurrencyQuery qry, int pk, bool wasSuccessful)> AddMissingCurrencyCodesForFixerIo(IEnumerable<(FXCurrencyQuery qry, decimal rate)> newCodes)
+        {
+            List<(FXCurrencyQuery qry, int pk, bool wasSuccessful)> results = new List<(FXCurrencyQuery qry, int pk, bool wasSuccessful)>();
+
+            foreach (var code in newCodes)
+            {
+                // get code form /currencies by EndingCurrencyCode
+                var getUri = new Uri($"http://localhost:3000/currencies/{code.qry.EndingCurrencyCodes}");
+                var getResults = _http.GetStringAsync(getUri).Result;
+
+                var currentCode = JsonSerializer.Deserialize<FXCurrencyQuery>(getResults);
+                if (currentCode != null)
+                {
+                    // create anon object form code.qry and add rate
+                    var objToPut = new
+                    {
+                        code.qry.StartingCurrencyCode,
+                        code.qry.StartingDate,
+                        code.qry.EndingCurrencyCodes,
+                        Rate = code.rate
+                    };
+                    var putResponse = _http.PutAsync(getUri, new StringContent(JsonSerializer.Serialize(objToPut), Encoding.UTF8, "application/json")).Result;
+                    results.Add((code.qry, 0, putResponse.IsSuccessStatusCode));
+                }
+                else
+                {
+                    //post new code
+                    var postUrl = new Uri($"http://localhost:3000/currencies");
+                    var postResponse = _http.PostAsync(postUrl, new StringContent(JsonSerializer.Serialize(code.qry), Encoding.UTF8, "application/json")).Result;
+                    results.Add((code.qry, 0, postResponse.IsSuccessStatusCode));
+                }
+
+            }
+
+            return results;
+        }
         #endregion
     }
 }
